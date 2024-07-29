@@ -3,7 +3,7 @@ import openai
 import mysql.connector
 
 # Configuration de la clé API OpenAI
-openai.api_key = ""
+openai.api_key = "sk-proj-olhLjBma8poICJUQiCtnT3BlbkFJP6JUiBF2NqA6ap0TvA8t"
 
 # Configuration de la connexion MySQL
 db_config = {
@@ -62,6 +62,7 @@ def Chat(user_messages) -> str:
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=user_messages,
+        temperature=1.2,
     )
     return response.choices[0].message['content']
 
@@ -74,7 +75,7 @@ def startChat(user_message):
                      "content": "Vous êtes un assistant de Maroc Telecom, vous pouvez uniquement répondre aux questions relatives aux offres de Maroc Telecom"}]
 
     # Commande pour obtenir les détails des offres
-    if any(word in user_message for word in ["tarifs", "détails", "offres","offre","tarif"]):
+    if any(word in user_message for word in ["tarifs", "détails", "offres", "offre", "tarif"]):
         offers = get_offer_details()
         if offers:
             response = "Voici les détails des offres de Maroc Telecom :\n" + "\n".join(

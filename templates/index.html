@@ -5,21 +5,41 @@
     <title>Ai Chat Bot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
 
+<div class="container">
+    <div class="autocomplete" >
+        <label>
+            <input type="text"  autocomplete="off" placeholder="Ask" id="txt" class="txt" onkeydown="go()">
+        </label>
+    </div>
+    <button type="button" onclick="ask()"><i class="fa-solid fa-arrow-up"></i></button>
 
 
-<div class="autocomplete" style="width:300px;">
-    <label>
-        <input type="text"  autocomplete="off" placeholder="Ask" id="txt" class="txt" onkeydown="go()">
-    </label>
+
+<div id="answer" style="background: white">
+    <p>
+        lf;sf;sf;sf
+    </p>
+    <p>
+        lf;sf;sf;sf
+    </p>
+    <p>
+        lf;sf;sf;sf
+    </p>
+    <p>
+        lf;sf;sf;sf
+    </p>
+    <p>
+        lf;sf;sf;sf
+    </p>
+    <p>
+        lf;sf;sf;sf
+    </p>
+
 </div>
-<button type="button" onclick="ask()"><i class="fa-solid fa-arrow-right"></i></button>
-
-
-<div id="answer">
-
 </div>
 </body>
 </html>
