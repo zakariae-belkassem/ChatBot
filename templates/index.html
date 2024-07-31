@@ -11,15 +11,20 @@
 
 <div class="answer" id="answer"></div>
 
+
 <div class="container">
+
     <div class="autocomplete">
         <label>
+
             <input type="text" autocomplete="off" placeholder="Ask" id="txt" class="txt" onkeydown="go()">
         </label>
         <button type="button" onclick="ask()">
             <i class="fa-sharp fa-solid fa-arrow-up" style="color: #ffffff;"></i>
         </button>
+
     </div>
+    <img  id="loading" class="loading" src="{{url_for('static', filename='loading.gif') }}"  alt="loading animation"/>
 </div>
 
 </body>

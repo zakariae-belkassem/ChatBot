@@ -27,9 +27,14 @@ async function fnc () {
 }
 window.onload = fnc;
 
+
 async function ask() {
     const tweet = document.getElementById('txt').value;
-    if(tweet===null || tweet ==="") return
+    if (tweet === null || tweet === "") return;
+
+    // Show the loading animation
+    document.getElementById('loading').style.display = 'block';
+
     try {
         const response = await fetch('http://localhost:5000/chat', {
             method: 'POST',
@@ -47,15 +52,26 @@ async function ask() {
 
         // Append new message
         const newMessage = document.createElement('p');
-        newMessage.innerHTML = '<i class="fa-light fa-robot" style="color: #0a21ff;"></i> : ' +data.result;
-        answerDiv.appendChild(newMessage);
+        newMessage.innerHTML = '<i class="fa-solid fa-robot" ></i> : ' + data.result;
         newMessage.setAttribute("class", "answerP");
-        document.getElementById('txt').value = ""
+        newMessage.setAttribute("id", "answerP");
+        answerDiv.appendChild(newMessage);
+
+        answerDiv.insertBefore(newMessage, answerDiv.firstChild);
+
+        // Scroll to the top
+        answerDiv.scrollTop = 0;
+
+        document.getElementById('txt').value = "";
+
+        document.getElementById('txt').value = "";
     } catch (error) {
-        //
+        console.error('Error:', error);
+    } finally {
+        // Hide the loading animation
+        document.getElementById('loading').style.display = 'none';
     }
 }
-
 //////////////////////////////////////////////
 
 
