@@ -47,7 +47,7 @@ async function ask() {
 
         // Append new message
         const newMessage = document.createElement('p');
-        newMessage.innerHTML = '<i class=\"fa-solid fa-robot\"></i> : ' +data.result;
+        newMessage.innerHTML = '<i class="fa-light fa-robot" style="color: #0a21ff;"></i> : ' +data.result;
         answerDiv.appendChild(newMessage);
         newMessage.setAttribute("class", "answerP");
         document.getElementById('txt').value = ""
