@@ -3,7 +3,7 @@ import openai
 import mysql.connector
 
 # Configuration de la clé API OpenAI
-openai.api_key = "sk-proj-olhLjBma8poICJUQiCtnT3BlbkFJP6JUiBF2NqA6ap0TvA8t"
+openai.api_key = open("Key", "r").read().strip()
 
 # Configuration de la connexion MySQL
 db_config = {
