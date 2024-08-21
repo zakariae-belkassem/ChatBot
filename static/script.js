@@ -32,8 +32,8 @@ async function ask() {
     const tweet = document.getElementById('txt').value;
     if (tweet === null || tweet === "") return;
 
-    // Show the loading animation
-    document.getElementById('loading').style.display = 'block';
+
+
 
     try {
         const response = await fetch('http://localhost:5000/chat', {
@@ -67,9 +67,6 @@ async function ask() {
         document.getElementById('txt').value = "";
     } catch (error) {
         console.error('Error:', error);
-    } finally {
-        // Hide the loading animation
-        document.getElementById('loading').style.display = 'none';
     }
 }
 //////////////////////////////////////////////

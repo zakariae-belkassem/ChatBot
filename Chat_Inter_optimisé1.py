@@ -52,8 +52,8 @@ def get_offer_details():
 
 
 # Fonction pour insérer un message dans la base de données
-def log_to_db(role, content):
-    cursor.execute('INSERT INTO messages (role, content) VALUES (%s, %s)', (role, content))
+def log_to_db(role, content, usr):
+    cursor.execute('INSERT INTO messages (role, content,user_id) VALUES (%s, %s,%s)', (role, content, usr))
     conn.commit()
 
 
@@ -68,11 +68,12 @@ def Chat(user_messages) -> str:
 
 
 # Fonction pour démarrer le chat
-def startChat(user_message):
+def startChat(user_message, Conn_userId):
     insert_offers()  # Initialiser les offres dans la base de données
     Topic = "offres de Maroc Telecom"
     all_messages = [{"role": "system",
-                     "content": "Vous êtes un assistant de Maroc Telecom, vous pouvez uniquement répondre aux questions relatives aux offres de Maroc Telecom"}]
+                     "content": "Vous êtes un assistant de Maroc Telecom, vous pouvez uniquement répondre aux "
+                                "questions relatives aux offres de Maroc Telecom"}]
 
     # Commande pour obtenir les détails des offres
     if any(word in user_message for word in ["tarifs", "détails", "offres", "offre", "tarif"]):
@@ -85,12 +86,11 @@ def startChat(user_message):
         else:
             response = "Je n'ai pas d'informations sur les offres pour le moment."
 
-        log_to_db('user', user_message)
-        log_to_db('assistant', response)
+        log_to_db('user', user_message, Conn_userId)
+        log_to_db('assistant', response, Conn_userId)
         return response
 
     if user_message == "exit":
-        print("Bot : Au revoir !")
         return
 
     if user_message == "topic":
@@ -103,10 +103,25 @@ def startChat(user_message):
         return
 
     all_messages.append({"role": "user", "content": user_message})
-    result = Chat(all_messages)
+    result = Chat(get_content_by_user_id(Conn_userId))
     all_messages.append({"role": "assistant", "content": result})
 
-    log_to_db('user', user_message)
-    log_to_db('assistant', result)
+    log_to_db('user', user_message, Conn_userId)
+    log_to_db('assistant', result, Conn_userId)
 
     return result
+
+
+#
+# get the messages of the connected user
+def get_content_by_user_id(user_id):
+    # Define the query to select content column where user_id matches
+    query = "SELECT content FROM messages WHERE user_id = %s ORDER BY date DESC"
+
+    # Execute the query
+    cursor.execute(query, (user_id,))
+
+    # Fetch all the results
+    content_list = [row['content'] for row in cursor.fetchall()]
+
+    return content_list[-4:]
