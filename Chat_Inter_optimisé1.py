@@ -103,10 +103,9 @@ def startChat(user_message, Conn_userId):
         return
 
     all_messages.append({"role": "user", "content": user_message})
+    log_to_db('user', user_message, Conn_userId)
     result = Chat(get_content_by_user_id(Conn_userId))
     all_messages.append({"role": "assistant", "content": result})
-
-    log_to_db('user', user_message, Conn_userId)
     log_to_db('assistant', result, Conn_userId)
 
     return result
@@ -122,6 +121,6 @@ def get_content_by_user_id(user_id):
     cursor.execute(query, (user_id,))
 
     # Fetch all the results
-    content_list = [row['content'] for row in cursor.fetchall()]
+    content_list = [row[2] for row in cursor.fetchall()]
 
     return content_list[-4:]

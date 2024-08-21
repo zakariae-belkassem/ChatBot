@@ -11,9 +11,11 @@
     <div class="login form">
         <header>Login</header>
         <form action="/login"  method="POST">
-            <input type="text" placeholder="Enter your email">
-            <input type="password" placeholder="Enter your password">
-
+            <input type="text" placeholder="Enter your username" name="username">
+            <input type="password" placeholder="Enter your password" name="password">
+            {% if message %}
+            <p style="color: red;">{{ message }}</p>
+            {% endif %}
             <input type="submit" class="button" value="Login">
         </form>
         <div class="signup">
@@ -29,6 +31,7 @@
             <input type="password" placeholder="Create a password" name="password">
             <input type="password" placeholder="Confirm your password">
             <input type="submit" class="button" value="Signup">
+
         </form>
         <div class="signup">
         <span class="signup">Already have an account?

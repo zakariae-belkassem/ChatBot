@@ -57,11 +57,9 @@ def register():
         # Hash the password
         hashed_password = generate_password_hash(password)
         # Store user data in the database
-        query = '''INSERT INTO users (username, password)
-                   VALUES (%s, %s)
-                '''
+        query = '''INSERT INTO users (username, password) VALUES (%s, %s)'''
         cursor.execute(query, (username, hashed_password))
-
+        conn.commit()
         return redirect("/login")
 
     return render_template("register.html")
@@ -79,10 +77,10 @@ def login():
         user = cursor.fetchone()
 
         # Check if username exists and if the password is correct
-        if user and check_password_hash(user['password'], password):
+        if user and check_password_hash(user[2], password):
             # Store user information in the session
-            session["user_id"] = user["id"]
-            session["username"] = user["username"]
+            session["user_id"] = user[0]
+            session["username"] = user[1]
             # Redirect the user to the home page
             return redirect("/home")
         else:
@@ -130,4 +128,8 @@ def Chat():
 
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
+    app.debug = True
     app.run()
