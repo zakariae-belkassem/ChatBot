@@ -100,12 +100,11 @@ def startChat(user_message, Conn_userId):
         all_messages = [{"role": "system",
                          "content": f"Vous êtes un assistant pour les offres de Maroc Telecom, vous pouvez uniquement répondre aux questions relatives aux offres de Maroc Telecom"}]
 
-        return
-
-    all_messages.append({"role": "user", "content": user_message})
     log_to_db('user', user_message, Conn_userId)
-    result = Chat(get_content_by_user_id(Conn_userId))
-    all_messages.append({"role": "assistant", "content": result})
+    msg = get_content_by_user_id(Conn_userId)
+    if not msg:
+        msg.append({"role": "user", "content": user_message})
+    result = Chat(msg)
     log_to_db('assistant', result, Conn_userId)
 
     return result
@@ -114,13 +113,13 @@ def startChat(user_message, Conn_userId):
 #
 # get the messages of the connected user
 def get_content_by_user_id(user_id):
-    # Define the query to select content column where user_id matches
-    query = "SELECT content FROM messages WHERE user_id = %s ORDER BY date DESC"
 
-    # Execute the query
+    query = "SELECT content, role FROM messages WHERE user_id = %s ORDER BY date DESC"
     cursor.execute(query, (user_id,))
+    # Fetch all results
+    results = cursor.fetchall()
+    # Prepare the messages array in the desired format
+    messages = [{"role": role, "content": content} for content, role in results]
 
-    # Fetch all the results
-    content_list = [row[2] for row in cursor.fetchall()]
-
-    return content_list[-4:]
+    # Return the last 4 messages (or adjust the number if needed)
+    return messages[-4:]
