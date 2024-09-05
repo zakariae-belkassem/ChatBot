@@ -193,3 +193,8 @@ function autocomplete(arr)  {
     });
 }
 
+
+
+function Prefresh(){
+    document.getElementById("answer").innerHTML = '';
+}

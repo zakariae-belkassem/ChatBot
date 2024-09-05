@@ -2,11 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #121212;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: #e0e0e0;
 }
 
 #chat-container {
@@ -15,9 +16,9 @@ body {
     height: 80vh;
     width: 100%;
     max-width: 600px;
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     border-radius: 8px;
     overflow: hidden;
     justify-content: space-between;
@@ -29,27 +30,30 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    color: #e0e0e0;
 }
 
 #question-bar {
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #f1f1f1;
-    border-top: 1px solid #ddd;
+    background-color: #2c2c2c;
+    border-top: 1px solid #333;
 }
 
 #question-bar input {
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
     border-radius: 5px;
     margin-right: 10px;
+    color: #e0e0e0;
 }
 
 #question-bar button {
-    background-color: #0c0d0d;
-    color: white;
+    background-color: #575757;
+    color: #e0e0e0;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -57,15 +61,15 @@ body {
 }
 
 #question-bar button:hover {
-    background-color: #030404;
+    background-color: #414141;
 }
 
 .userP {
     align-self: flex-end;
     max-width: 70%;
     margin: 5px;
-    background-color: #0e0e0e;
-    color: white;
+    background-color: #333;
+    color: #e0e0e0;
     padding: 10px;
     border-radius: 15px;
     position: relative;
@@ -76,15 +80,15 @@ body {
 
 .userP i {
     margin-right: 5px;
-    color: white;
+    color: #e0e0e0;
 }
 
 .answerP {
     align-self: flex-start;
     max-width: 70%;
     margin: 5px;
-    background-color: #e1e1e1;
-    color: black;
+    background-color: #444;
+    color: #e0e0e0;
     padding: 10px;
     border-radius: 15px;
     position: relative;
@@ -95,12 +99,18 @@ body {
 
 .answerP i {
     margin-right: 5px;
-    color: black;
+    color: #e0e0e0;
 }
 
 p {
     margin: 5px 0;
 }
+
 .logout{
     margin: 10px;
+    color: #e0e0e0;
+}
+#lang{
+    background-color: #444;
+    color: #e0e0e0;
 }
