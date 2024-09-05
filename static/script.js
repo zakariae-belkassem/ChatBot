@@ -29,11 +29,27 @@ window.onload = fnc;
 
 
 async function ask() {
-    const tweet = document.getElementById('txt').value;
+    let tweet = document.getElementById('txt').value;
     if (tweet === null || tweet === "") return;
+    if (tweet === "exit" || tweet === "quitter" || tweet === "goodbye") {
+        document.getElementById("txt").disabled = true;
 
+        const answerDiv = document.getElementById('answer');
 
+        // Append new message
+        const newMessage = document.createElement('p');
+        newMessage.innerHTML = '<i class="fa-solid fa-robot" ></i> : ' + "GoodBye ! ";
+        newMessage.setAttribute("class", "answerP");
+        newMessage.setAttribute("id", "answerP");
+        answerDiv.appendChild(newMessage);
 
+        answerDiv.insertBefore(newMessage, answerDiv.firstChild);
+
+        // Scroll to the top
+        answerDiv.scrollTop = 0;
+    }
+
+    let lang = document.getElementById("lang").value;
 
     try {
         const response = await fetch('http://localhost:5000/chat', {
@@ -41,7 +57,7 @@ async function ask() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ text: tweet }),
+            body: JSON.stringify({ text:  tweet , lang: lang  }),
         });
 
         if (!response.ok) {

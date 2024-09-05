@@ -121,7 +121,9 @@ def Predict():
 def Chat():
     data = request.get_json()
     msg = data.get('text', '')
-    res = startChat(msg, session["user_id"])
+    lang = data.get('lang', '')
+
+    res = startChat(msg, session["user_id"], lang)
     response = jsonify({'result': res, "user": msg})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

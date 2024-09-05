@@ -58,22 +58,25 @@ def log_to_db(role, content, usr):
 
 
 # Fonction de requête OpenAI
-def Chat(user_messages) -> str:
+def Chat(user_messages, lang) -> str:
+    all_messages = {"role": "system",
+                     "content": "Vous êtes un assistant de Maroc Telecom, vous pouvez uniquement répondre aux "
+                                "questions relatives aux offres de Maroc Telecom , you must answer in  " + lang}
+    user_messages.append(all_messages)
+
+
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=user_messages,
+      model="gpt-3.5-turbo",
+       messages=user_messages,
         temperature=1.2,
     )
     return response.choices[0].message['content']
 
 
 # Fonction pour démarrer le chat
-def startChat(user_message, Conn_userId):
+def startChat(user_message, Conn_userId, lang):
     insert_offers()  # Initialiser les offres dans la base de données
     Topic = "offres de Maroc Telecom"
-    all_messages = [{"role": "system",
-                     "content": "Vous êtes un assistant de Maroc Telecom, vous pouvez uniquement répondre aux "
-                                "questions relatives aux offres de Maroc Telecom"}]
 
     # Commande pour obtenir les détails des offres
     if any(word in user_message for word in ["tarifs", "détails", "offres", "offre", "tarif"]):
@@ -104,7 +107,7 @@ def startChat(user_message, Conn_userId):
     msg = get_content_by_user_id(Conn_userId)
     if not msg:
         msg.append({"role": "user", "content": user_message})
-    result = Chat(msg)
+    result = Chat(msg , lang)
     log_to_db('assistant', result, Conn_userId)
 
     return result
@@ -113,8 +116,7 @@ def startChat(user_message, Conn_userId):
 #
 # get the messages of the connected user
 def get_content_by_user_id(user_id):
-
-    query = "SELECT content, role FROM messages WHERE user_id = %s ORDER BY date DESC"
+    query = "SELECT content, role FROM messages WHERE user_id = %s AND DATE(date) = CURDATE() ORDER BY date asc;"
     cursor.execute(query, (user_id,))
     # Fetch all results
     results = cursor.fetchall()

@@ -8,12 +8,20 @@
 </head>
 <body>
 <a href="/logout" class="logout">logout</a>
+
+<label for="lang">Choose a language :</label>
+<select name="lan" id="lang">
+    <option value="Arab">Ar</option>
+    <option value="French">Fr</option>
+    <option value="English">En</option>
+</select>
+
 <div id="chat-container">
     <div id="answer"></div>
 
     <!-- Barre de question placée en bas -->
     <div id="question-bar">
-        <input type="text" id="txt" autocomplete="off" placeholder="Ask" class="txt" onkeydown="go()">
+            <input type="text" id="txt" autocomplete="off" placeholder="Ask" class="txt" onkeydown="go()">
         <button type="button" onclick="ask()"><i class="fa-solid fa-arrow-right"></i></button>
     </div>
 </div>
