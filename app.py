@@ -54,6 +54,15 @@ def register():
         if not (username and password):
             return render_template("register.html", message="All fields are required.")
 
+
+        # Check if username already exists
+        query = '''SELECT * FROM users WHERE username = %s'''
+        cursor.execute(query, (username,))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            return render_template("register.html", message="Username already exists. Please choose a different one.")
+
         # Hash the password
         hashed_password = generate_password_hash(password)
         # Store user data in the database
