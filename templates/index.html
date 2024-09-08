@@ -5,21 +5,33 @@
     <title>AI Chat Bot</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'atos.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<a href="/logout" class="logout">logout</a>
+<a href="/logout" class="logout">logout <i class="fa-solid fa-arrow-right-from-bracket" id="iconLogout"></i></a>
 
-<label for="lang">Choose a language :</label>
-<select name="lan" id="lang">
+<label for="lang" class="langLabel">Choose a language :</label>
+<select name="lan" id="lang" onchange="modLang()">
+    <option value="English">En</option>
     <option value="Arab">Ar</option>
     <option value="French">Fr</option>
-    <option value="English">En</option>
+
 </select>
 
-<p id="newChat" title="New Chat" onclick="Prefresh()"><i class="fa-regular fa-square-plus"></i></p>
+<div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background-color: #333; color: white; padding: 20px; border-radius: 10px; z-index: 1000;">
+    Sorry, your browser's language is not supported at the moment.
+</div>
+
+<p id="newChat" title="New Chat" onclick="Prefresh()">New Chat<i class="fa-regular fa-square-plus" id="newChatI" ></i></p>
 <div id="chat-container">
-    <div id="answer"></div>
+    <div id="answer">
+        <p class="answerP" id="answerP"><i class="fa-solid fa-robot" ></i> :Welcome ! Feel free to ask any questions, we are here to help you</p>
+    </div>
 
     <!-- Barre de question placée en bas -->
     <div id="question-bar">
@@ -28,7 +40,6 @@
     </div>
 </div>
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>

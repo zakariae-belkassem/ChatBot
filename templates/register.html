@@ -5,38 +5,39 @@
     <title>Ai Chat Bot-Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='registerCss.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'atos.png') }}">
+    <script src="{{ url_for('static', filename = 'loginScript.js') }}"></script>
+
 </head>
 <body>
 <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
-        <header>Login</header>
+        <header id="loginLbl">Login</header>
         <form action="/login"  method="POST">
-            <input type="text" placeholder="Enter your username" name="username">
-            <input type="password" placeholder="Enter your password" name="password">
+            <input type="text" placeholder="Enter your username" name="username" id="username">
+            <input type="password" placeholder="Enter your password" name="password" id="password">
             {% if message %}
             <p style="color: red;">{{ message }}</p>
             {% endif %}
-            <input type="submit" class="button" value="Login">
+            <input type="submit" class="button" value="Login" id="logBtn">
         </form>
-        <div class="signup">
-        <span class="signup">Don't have an account?
+        <div class="signup" id="wxz">
+        <span class="signup" >Don't have an account?
          <label for="check">Signup</label>
         </span>
         </div>
     </div>
     <div class="registration form">
-        <header>Signup</header>
+        <header id="registerLbl">Signup</header>
         <form action="/register" method="POST">
-            <input type="text" placeholder="Enter your username" name="username">
-            <input type="password" placeholder="Create a password" name="password">
-            <input type="password" placeholder="Confirm your password">
-            <input type="submit" class="button" value="Signup">
-
+            <input type="text" placeholder="Enter your username" name="username" id="usernameR">
+            <input type="password" placeholder="Create a password" name="password" id="passwordR">
+            <input type="password" placeholder="Confirm your password" id="confPswd">
+            <input type="submit" class="button" value="Signup" id="signupR">
         </form>
-        <div class="signup">
-        <span class="signup">Already have an account?
-         <label for="check">Login</label>
+        <div class="signup" id="ss">
+        <span class="signup"  >Already have an account?
+         <label for="check" >Login</label>
         </span>
         </div>
     </div>

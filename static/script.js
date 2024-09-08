@@ -4,6 +4,72 @@ function go(){
     else autocomplete(names.sort())
 }
 
+window.onload = function (){
+    //get user lang
+    const userLanguage = navigator.language
+    Lang(userLanguage)
+    console.log(1)
+
+};
+
+
+function Lang(lang) {
+        const dataLang = {
+            "arab": ["اختر اللغة", "محادثة جديدة", "تسجيل الخروج", "إسأل", "مرحبًا بكم في موقعنا! لا تترددوا في طرح أي أسئلة، نحن هنا لمساعدتكم"],
+            "french": ["choisissez une langue", "nouveau chat", "déconnexion", "demande moi", "Bienvenue sur notre site ! Posez-nous vos questions, et nous sommes là pour vous aider"],
+            "english": ["Choose a language", "New Chat", "Logout", "Ask", "Welcome to our site! Feel free to ask any questions, we are here to help you"]
+        };
+
+        if (lang === "ar") {
+            document.querySelector(".langLabel").textContent = dataLang.arab[0];
+            document.getElementById("newChat").innerHTML = '<i class="fa-regular fa-square-plus" id="newChatI" >' + dataLang.arab[1]  ;
+            document.querySelector(".logout").innerHTML = dataLang.arab[2] + ' <i class="fa-solid fa-arrow-right-from-bracket" id="iconLogout"></i>';
+            document.querySelector(".txt").placeholder = dataLang.arab[3];
+            document.getElementById("answerP").innerHTML = '<i class="fa-solid fa-robot" ></i> :' + dataLang.arab[4];
+            document.getElementById("answerP").setAttribute("lang","ar")
+            document.getElementById("answerP").setAttribute("dir","rtl")
+            document.getElementById("txt").setAttribute("lang","ar")
+            document.getElementById("txt").setAttribute("dir","rtl")
+
+        }
+        else if (lang === "fr") {
+            document.querySelector(".langLabel").textContent = dataLang.french[0];
+            document.getElementById("newChat").innerHTML = dataLang.french[1] + '<i class="fa-regular fa-square-plus" id="newChatI" >';
+            document.querySelector(".logout").innerHTML = dataLang.french[2] + ' <i class="fa-solid fa-arrow-right-from-bracket" id="iconLogout"></i>';
+            document.querySelector(".txt").placeholder = dataLang.french[3];
+            document.getElementById("answerP").innerHTML = ' <i class="fa-solid fa-robot" ></i> : ' + dataLang.french[4];
+            document.getElementById("answerP").setAttribute("lang","ar")
+            document.getElementById("answerP").setAttribute("dir","ltr")
+            document.getElementById("txt").setAttribute("lang","fr")
+            document.getElementById("txt").setAttribute("dir","ltr")
+        }
+        else if (lang === "en") {
+            document.querySelector(".langLabel").textContent = dataLang.english[0];
+            document.getElementById("newChat").innerHTML = dataLang.english[1] + '<i class="fa-regular fa-square-plus" id="newChatI" >';
+            document.querySelector(".logout").innerHTML = dataLang.english[2] + ' <i class="fa-solid fa-arrow-right-from-bracket" id="iconLogout"></i>';
+            document.querySelector(".txt").placeholder = dataLang.english[3];
+            document.getElementById("answerP").innerHTML ='<i class="fa-solid fa-robot" ></i> :' + dataLang.english[4];
+
+            document.getElementById("answerP").setAttribute("lang","ar")
+            document.getElementById("answerP").setAttribute("dir","ltr")
+            document.getElementById("txt").setAttribute("lang","en")
+            document.getElementById("txt").setAttribute("dir","ltr")
+
+
+        }
+        else {
+            const popup = document.getElementById("popup");
+            popup.style.display = "block"; // Show the popup
+
+            // Hide the popup after 10 seconds (10000 milliseconds)
+            setTimeout(function() {
+                popup.style.display = "none";
+            }, 10000);
+        }
+
+
+    }
+
 
 async function fnc () {
     try {
@@ -78,7 +144,7 @@ async function ask() {
         // Scroll to the top
         answerDiv.scrollTop = 0;
 
-        document.getElementById('txt').value = "";
+
 
         document.getElementById('txt').value = "";
     } catch (error) {
@@ -197,4 +263,9 @@ function autocomplete(arr)  {
 
 function Prefresh(){
     document.getElementById("answer").innerHTML = '';
+}
+
+function modLang(){
+    let lang = document.getElementById("lang").value;
+    Lang(lang.substring(0,2).toLowerCase())
 }
